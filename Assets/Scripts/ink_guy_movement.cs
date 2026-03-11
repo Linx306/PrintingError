@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class ink_guy : MonoBehaviour
 {
+    public GameObject BulletPrefab;
     public float JumpForce;
     public float Speed;
     private Rigidbody2D Rigidbody2D;
-    private Animator Animator;    private float horizontal;
+    private Animator Animator;   
+     private float horizontal;
     private bool Grounded;
+
+    private float LastShoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,16 +31,39 @@ public class ink_guy : MonoBehaviour
         Animator.SetBool("running", horizontal !=0.0f);
 
         Debug.DrawRay(transform.position, Vector3.down * 0.2f, Color.red);
-        if(Physics2D.Raycast(transform.position, Vector3.down, 0.2f))
-        {
-            Grounded = true;
-        }
-        else Grounded = false;
+        if (Physics2D.Raycast(transform.position, Vector3.down, 0.2f))
+{
+    Grounded = true;
+}
+else
+{
+    Grounded = false;
+}
+
+Animator.SetBool("jumping", !Grounded);
         
         if (Input.GetKeyDown(KeyCode.W) && Grounded)
         {
             Jump();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > LastShoot + 0.25f)
+        {
+            Shoot();
+            LastShoot = Time.time;
+        }
+
+
+
+    }
+
+    private void Shoot()
+    {
+         Vector3 direction;
+        if(transform.localScale.x == 1.0f) direction = Vector3.right;
+        else direction = Vector3.left;
+       GameObject bullet = Instantiate(BulletPrefab, transform.position + direction * 0.2f,Quaternion.identity);
+       bullet.GetComponent<Bullet>().SetDirection(direction);
     }
     private void Jump()
     {
