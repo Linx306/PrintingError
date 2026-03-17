@@ -11,6 +11,7 @@ public class CameraScript : MonoBehaviour
     {
         Vector3 position = transform.position;
         position.x = ink_guy.transform.position.x;
+        position.y = ink_guy.transform.position.y;
         transform.position = position;
     }
 }
