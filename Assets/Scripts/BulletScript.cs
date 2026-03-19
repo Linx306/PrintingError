@@ -18,7 +18,16 @@ public class Bullet : MonoBehaviour
     {
         Rigidbody2D.velocity = Direction * Speed;
     }
+private void OnCollisionEnter2D(Collision2D collision)
+{
+    Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
+    if (enemy != null)
+    {
+        enemy.Hit();
+        DestroyBullet();
+    }
+}
     public void SetDirection(Vector3 direction)
     {
         Direction = direction;

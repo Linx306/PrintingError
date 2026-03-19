@@ -1,12 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+
 
 public class ink_guy : MonoBehaviour
 {
     public GameObject BulletPrefab;
     public float JumpForce;
     public float Speed;
+    public int Life = 5;
+    public Slider healthBar;
+    public int MaxLife = 5;
+    public int MaxAmmo = 5;
+    public int CurrentAmmo;
+    public Image[] ammoImages;
     private Rigidbody2D Rigidbody2D;
     private Animator Animator;   
      private float horizontal;
@@ -18,6 +27,10 @@ public class ink_guy : MonoBehaviour
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
+        healthBar.maxValue = MaxLife;
+        healthBar.value = Life;
+        CurrentAmmo = MaxAmmo;
+        UpdateAmmoUI();
     }
 
     // Update is called once per frame
@@ -47,15 +60,32 @@ Animator.SetBool("jumping", !Grounded);
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > LastShoot + 0.25f)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > LastShoot + 0.25f && CurrentAmmo > 0)
         {
             Shoot();
             LastShoot = Time.time;
+            CurrentAmmo--;
+            UpdateAmmoUI();
         }
 
 
 
     }
+
+    void UpdateAmmoUI()
+{
+    for (int i = 0; i < ammoImages.Length; i++)
+    {
+        if (i < CurrentAmmo)
+        {
+            ammoImages[i].enabled = true; // visible
+        }
+        else
+        {
+            ammoImages[i].enabled = false; // oculto
+        }
+    }
+}
 
     private void Shoot()
     {
@@ -73,4 +103,24 @@ Animator.SetBool("jumping", !Grounded);
     {
        Rigidbody2D.velocity = new Vector2(horizontal * Speed, Rigidbody2D.velocity.y);
     }
+public void TakeDamage(int damage)
+{
+    Life -= damage;
+    healthBar.value = Life;
+
+    if (Life <= 0)
+    {
+        Destroy(gameObject);
+    }
+}
+
+public void AddAmmo(int amount)
+{
+    CurrentAmmo += amount;
+
+    if (CurrentAmmo > MaxAmmo)
+        CurrentAmmo = MaxAmmo;
+
+    UpdateAmmoUI();
+}
 }
