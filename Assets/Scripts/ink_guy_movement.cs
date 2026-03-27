@@ -45,6 +45,7 @@ public class ink_guy : MonoBehaviour
 
         Debug.DrawRay(transform.position, Vector3.down * 0.2f, Color.red);
         if (Physics2D.Raycast(transform.position, Vector3.down, 0.2f))
+       
 {
     Grounded = true;
 }
@@ -87,6 +88,7 @@ Animator.SetBool("jumping", !Grounded);
     }
 }
 
+
     private void Shoot()
     {
          Vector3 direction;
@@ -113,6 +115,12 @@ public void TakeDamage(int damage)
         Destroy(gameObject);
     }
 }
+
+public void RestoreDamage(int restore)
+    {
+         Life += restore;
+    healthBar.value = Life;
+    }
 
 public void AddAmmo(int amount)
 {

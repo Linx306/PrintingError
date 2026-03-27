@@ -12,13 +12,14 @@ public class Enemy : MonoBehaviour
 
     public Transform GroundCheck;
     public float GroundCheckDistance = 0.5f;
+    public float detectionRange = 5f;
 
     private Rigidbody2D Rigidbody2D;
 
     private float lastHit;
     public float HitCooldown = 1f;
 
-    private int moveDirection = 1; // 1 derecha, -1 izquierda
+    private int moveDirection = 1;
 
     void Start()
     {
@@ -27,7 +28,19 @@ public class Enemy : MonoBehaviour
 
    void FixedUpdate()
 {
+    
     if (ink_guy == null) return;
+
+    // Distancia al jugador
+    float distanceToPlayer = Mathf.Abs(ink_guy.transform.position.x - transform.position.x);
+
+    // Si está fuera de rango → no seguir
+    if (distanceToPlayer > detectionRange)
+{
+    // Detener completamente
+    Rigidbody2D.velocity = new Vector2(0, Rigidbody2D.velocity.y);
+    return;
+}
 
     Vector3 forward = (moveDirection == 1) ? Vector3.right : Vector3.left;
     Vector3 origin = GroundCheck.position + forward * 0.2f;
