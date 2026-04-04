@@ -20,7 +20,7 @@ public class ink_guy : MonoBehaviour
     private Animator Animator;   
      private float horizontal;
     private bool Grounded;
-
+private bool isInvulnerable = false;
     private float LastShoot;
     // Start is called before the first frame update
     void Start()
@@ -91,12 +91,18 @@ Animator.SetBool("jumping", !Grounded);
 
     private void Shoot()
     {
+        Animator.SetBool("shoot", true);
          Vector3 direction;
         if(transform.localScale.x == 1.0f) direction = Vector3.right;
         else direction = Vector3.left;
        GameObject bullet = Instantiate(BulletPrefab, transform.position + direction * 0.2f,Quaternion.identity);
        bullet.GetComponent<Bullet>().SetDirection(direction);
+       Invoke("StopShoot", 0.3f);
     }
+    void StopShoot()
+{
+    Animator.SetBool("shoot", false);
+}
     private void Jump()
     {
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
@@ -109,13 +115,29 @@ public void TakeDamage(int damage)
 {
     Life -= damage;
     healthBar.value = Life;
+    if (isInvulnerable) return;
+
+    isInvulnerable = true;
+
+    Animator.SetBool("hurt", true);
+
+    Invoke("StopHurt", 0.3f);
+    Invoke("ResetInvulnerability", 1f);
+    Rigidbody2D.AddForce(new Vector2(-transform.localScale.x * 4f, 4f), ForceMode2D.Impulse);
 
     if (Life <= 0)
     {
         Destroy(gameObject);
     }
 }
-
+void StopHurt()
+{
+    Animator.SetBool("hurt", false);
+}
+void ResetInvulnerability()
+{
+    isInvulnerable = false;
+}
 public void RestoreDamage(int restore)
     {
          Life += restore;
