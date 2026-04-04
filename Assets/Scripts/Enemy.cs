@@ -4,75 +4,69 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float Speed = 1f;
+    public float Speed = 2f;
     public int Life = 3;
     public int Damage = 1;
 
-    public GameObject ink_guy;
-
     public Transform GroundCheck;
-    public float GroundCheckDistance = 0.5f;
-    public float detectionRange = 5f;
+    public Transform WallCheck;
 
-    private Rigidbody2D Rigidbody2D;
+    public float GroundCheckDistance = 0.5f;
+    public float WallCheckDistance = 0.3f;
+
+    public LayerMask GroundLayer;
+
+    private Rigidbody2D rb;
+    private int direction = 1;
+
+    private float lastFlipTime;
+    public float flipCooldown = 0.3f; // 🔥 evita girar en bucle
 
     private float lastHit;
     public float HitCooldown = 1f;
 
-    private int moveDirection = 1;
-
     void Start()
     {
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-   void FixedUpdate()
-{
-    
-    if (ink_guy == null) return;
-
-    // Distancia al jugador
-    float distanceToPlayer = Mathf.Abs(ink_guy.transform.position.x - transform.position.x);
-
-    // Si está fuera de rango → no seguir
-    if (distanceToPlayer > detectionRange)
-{
-    // Detener completamente
-    Rigidbody2D.velocity = new Vector2(0, Rigidbody2D.velocity.y);
-    return;
-}
-
-    Vector3 forward = (moveDirection == 1) ? Vector3.right : Vector3.left;
-    Vector3 origin = GroundCheck.position + forward * 0.2f;
-
-    RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, GroundCheckDistance);
-    Debug.DrawRay(origin, Vector2.down * GroundCheckDistance, Color.red);
-
-    if (hit.collider == null)
+    void FixedUpdate()
     {
-        Rigidbody2D.velocity = new Vector2(0, Rigidbody2D.velocity.y);
-        return;
+        Vector2 forward = (direction == 1) ? Vector2.right : Vector2.left;
+
+        // Raycasts
+        RaycastHit2D groundHit = Physics2D.Raycast(
+            GroundCheck.position + (Vector3)(forward * 0.2f),
+            Vector2.down,
+            GroundCheckDistance,
+            GroundLayer
+        );
+
+        RaycastHit2D wallHit = Physics2D.Raycast(
+            WallCheck.position,
+            forward,
+            WallCheckDistance,
+            GroundLayer
+        );
+
+        Debug.DrawRay(GroundCheck.position + (Vector3)(forward * 0.2f), Vector2.down * GroundCheckDistance, Color.red);
+        Debug.DrawRay(WallCheck.position, forward * WallCheckDistance, Color.blue);
+
+        // 🚨 GIRAR SOLO SI PASÓ UN TIEMPO
+        if ((groundHit.collider == null || wallHit.collider != null) && Time.time > lastFlipTime + flipCooldown)
+        {
+            Flip();
+            lastFlipTime = Time.time;
+        }
+
+        // Movimiento constante
+        rb.velocity = new Vector2(direction * Speed, rb.velocity.y);
     }
-
-
-    float dirToPlayer = ink_guy.transform.position.x - transform.position.x;
-
-    if (Mathf.Abs(dirToPlayer) > 0.1f)
-    {
-        moveDirection = (dirToPlayer > 0) ? 1 : -1;
-    }
-
-    // Movimiento
-    Rigidbody2D.velocity = new Vector2(moveDirection * Speed, Rigidbody2D.velocity.y);
-
-    // Voltear sprite
-    transform.localScale = new Vector3(moveDirection, 1, 1);
-}
 
     void Flip()
     {
-        moveDirection *= -1;
-        transform.localScale = new Vector3(moveDirection, 1, 1);
+        direction *= -1;
+        transform.localScale = new Vector3(direction, 1, 1);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
