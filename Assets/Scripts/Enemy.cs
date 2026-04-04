@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
         Debug.DrawRay(GroundCheck.position + (Vector3)(forward * 0.2f), Vector2.down * GroundCheckDistance, Color.red);
         Debug.DrawRay(WallCheck.position, forward * WallCheckDistance, Color.blue);
 
-        // 🚨 GIRAR SOLO SI PASÓ UN TIEMPO
+        // GIRAR SOLO SI PASÓ UN TIEMPO
         if ((groundHit.collider == null || wallHit.collider != null) && Time.time > lastFlipTime + flipCooldown)
         {
             Flip();
