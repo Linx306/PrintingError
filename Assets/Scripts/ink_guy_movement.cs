@@ -128,6 +128,10 @@ public void TakeDamage(int damage)
     if (Life <= 0)
     {
         Destroy(gameObject);
+        if(GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
     }
 }
 void StopHurt()
