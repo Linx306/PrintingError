@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     private int direction = 1;
 
     private float lastFlipTime;
-    public float flipCooldown = 0.3f; // 🔥 evita girar en bucle
+    public float flipCooldown = 0.3f; 
 
     private float lastHit;
     public float HitCooldown = 1f;
