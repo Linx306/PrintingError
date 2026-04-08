@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -835,7 +835,7 @@ TextureImporter:
       name: Bloques 1_35
       rect:
         serializedVersion: 2
-        x: 224
+        x: 160
         y: 64
         width: 32
         height: 32
@@ -856,7 +856,7 @@ TextureImporter:
       name: Bloques 1_36
       rect:
         serializedVersion: 2
-        x: 256
+        x: 224
         y: 64
         width: 32
         height: 32
@@ -877,8 +877,8 @@ TextureImporter:
       name: Bloques 1_37
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 256
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -898,7 +898,7 @@ TextureImporter:
       name: Bloques 1_38
       rect:
         serializedVersion: 2
-        x: 64
+        x: 32
         y: 32
         width: 32
         height: 32
@@ -919,7 +919,7 @@ TextureImporter:
       name: Bloques 1_39
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 32
         width: 32
         height: 32
@@ -940,7 +940,7 @@ TextureImporter:
       name: Bloques 1_40
       rect:
         serializedVersion: 2
-        x: 224
+        x: 96
         y: 32
         width: 32
         height: 32
@@ -961,7 +961,7 @@ TextureImporter:
       name: Bloques 1_41
       rect:
         serializedVersion: 2
-        x: 256
+        x: 160
         y: 32
         width: 32
         height: 32
@@ -974,6 +974,48 @@ TextureImporter:
       bones: []
       spriteID: b884a441da26da74b82d58cf779916c8
       internalID: -1293080694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bloques 1_42
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b50054e171cb5b4fa069fb2ba74eec5
+      internalID: 1787330184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bloques 1_43
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17013c21e5b6d8e46a821e11347fb597
+      internalID: -143256722
       vertices: []
       indices: 
       edges: []
@@ -1026,6 +1068,8 @@ TextureImporter:
       Bloques 1_4: 2119650416
       Bloques 1_40: -12074999
       Bloques 1_41: -1293080694
+      Bloques 1_42: 1787330184
+      Bloques 1_43: -143256722
       Bloques 1_5: -1024720794
       Bloques 1_6: -1363573138
       Bloques 1_7: 643616232
