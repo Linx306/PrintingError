@@ -10506,7 +10506,7 @@ MonoBehaviour:
   Life: 5
   Damage: 2
   GroundCheck: {fileID: 924311357}
-  WallCheck: {fileID: 0}
+  WallCheck: {fileID: 1942070166}
   GroundCheckDistance: 0.5
   WallCheckDistance: 0.3
   GroundLayer:
