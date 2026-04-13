@@ -26,6 +26,8 @@ public class ink_guy : MonoBehaviour
     private bool isInvulnerable = false;
     private float LastShoot;
 
+    public Transform fallLimit;
+
     // Start
     void Start()
     {
@@ -82,6 +84,8 @@ public class ink_guy : MonoBehaviour
             CurrentAmmo--;
             UpdateAmmoUI();
         }
+
+        CheckFall();
     }
 
     void UpdateAmmoUI()
@@ -188,5 +192,18 @@ public class ink_guy : MonoBehaviour
             CurrentAmmo = MaxAmmo;
 
         UpdateAmmoUI();
+    }
+
+    void CheckFall()
+    {
+        if (fallLimit != null && transform.position.y < fallLimit.position.y)
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
+
+            Destroy(gameObject);
+        }
     }
 }
