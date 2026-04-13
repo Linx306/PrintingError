@@ -616,9 +616,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0009999999, y: 0.0009999999, z: 0.0009999999}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 272935274}
-  - {fileID: 180051692}
+  m_Children: []
   m_Father: {fileID: 2064460653}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9290,6 +9288,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
+  healthBar: {fileID: 0}
   flipCooldown: 0.3
   HitCooldown: 1
 --- !u!95 &1154557968
@@ -10051,7 +10050,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1205148342}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10292,6 +10291,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
+  healthBar: {fileID: 0}
   flipCooldown: 0.3
   HitCooldown: 1
 --- !u!95 &1687516996
@@ -10573,7 +10573,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 180051692}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -10899,9 +10899,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1140739876}
-  - {fileID: 1205148342}
+  m_Children: []
   m_Father: {fileID: 1868084471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.60717416, y: 0.5}
@@ -10939,7 +10937,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1090680678}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11164,6 +11162,7 @@ MonoBehaviour:
   - {fileID: 323393080}
   - {fileID: 1408675932}
   swordCollider: {fileID: 524057896}
+  fallLimit: {fileID: 0}
 --- !u!95 &2012731840
 Animator:
   serializedVersion: 5
@@ -11533,7 +11532,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  healthBar: {fileID: 180051691}
+  healthBar: {fileID: 0}
   flipCooldown: 0.3
   HitCooldown: 1
 --- !u!95 &2064460649
@@ -11732,6 +11731,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
+  healthBar: {fileID: 0}
   flipCooldown: 0.3
   HitCooldown: 1
 --- !u!60 &2108931136
@@ -11949,6 +11949,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
+  healthBar: {fileID: 0}
   flipCooldown: 0.3
   HitCooldown: 1
 --- !u!60 &2127978244
@@ -12248,3 +12249,6 @@ SceneRoots:
   - {fileID: 847234434}
   - {fileID: 2127978248}
   - {fileID: 1687517000}
+  - {fileID: 1503885952}
+  - {fileID: 1738733873}
+  - {fileID: 1949860302}
