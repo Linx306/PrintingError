@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Enemy : MonoBehaviour
 
     public LayerMask GroundLayer;
 
+    public Slider healthBar; // 🔥 referencia a la barra de vida
+
     private Rigidbody2D rb;
     private int direction = 1;
 
@@ -25,12 +28,16 @@ public class Enemy : MonoBehaviour
     private float lastHit;
     public float HitCooldown = 1f;
 
-    private float lastDamageTime;
-    public float damageCooldown = 0.3f; 
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // 🔴 Inicializar barra de vida
+        if (healthBar != null)
+        {
+            healthBar.maxValue = Life;
+            healthBar.value = Life;
+        }
     }
 
     void FixedUpdate()
@@ -63,9 +70,10 @@ public class Enemy : MonoBehaviour
     void Flip()
     {
         direction *= -1;
-        transform.localScale = new Vector3(direction, 1, 1);
+        GetComponent<SpriteRenderer>().flipX = (direction == -1);
     }
 
+    // 🔴 DAÑO AL JUGADOR
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("ink_guy"))
@@ -83,18 +91,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    // 🔴 ATAQUE DE ESPADA
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Espada") && Time.time > lastDamageTime + damageCooldown)
+        if (collision.CompareTag("Espada"))
         {
             Hit(collision.transform);
-            lastDamageTime = Time.time;
         }
     }
 
+    // 🔥 CUANDO RECIBE DAÑO
     public void Hit(Transform attacker)
     {
         Life--;
+
+        // 🔴 actualizar barra
+        if (healthBar != null)
+        {
+            healthBar.value = Life;
+        }
 
         float direction = transform.position.x - attacker.position.x;
         rb.AddForce(new Vector2(direction * 4f, 2f), ForceMode2D.Impulse);
