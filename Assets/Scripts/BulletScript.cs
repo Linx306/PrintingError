@@ -24,7 +24,7 @@ private void OnCollisionEnter2D(Collision2D collision)
 
     if (enemy != null)
     {
-        enemy.Hit();
+        enemy.Hit(transform);
         DestroyBullet();
     }
 }

@@ -20,10 +20,13 @@ public class Enemy : MonoBehaviour
     private int direction = 1;
 
     private float lastFlipTime;
-    public float flipCooldown = 0.3f; 
+    public float flipCooldown = 0.3f;
 
     private float lastHit;
     public float HitCooldown = 1f;
+
+    private float lastDamageTime;
+    public float damageCooldown = 0.3f; 
 
     void Start()
     {
@@ -34,7 +37,6 @@ public class Enemy : MonoBehaviour
     {
         Vector2 forward = (direction == 1) ? Vector2.right : Vector2.left;
 
-        // Raycasts
         RaycastHit2D groundHit = Physics2D.Raycast(
             GroundCheck.position + (Vector3)(forward * 0.2f),
             Vector2.down,
@@ -49,17 +51,12 @@ public class Enemy : MonoBehaviour
             GroundLayer
         );
 
-        Debug.DrawRay(GroundCheck.position + (Vector3)(forward * 0.2f), Vector2.down * GroundCheckDistance, Color.red);
-        Debug.DrawRay(WallCheck.position, forward * WallCheckDistance, Color.blue);
-
-        // GIRAR SOLO SI PASÓ UN TIEMPO
         if ((groundHit.collider == null || wallHit.collider != null) && Time.time > lastFlipTime + flipCooldown)
         {
             Flip();
             lastFlipTime = Time.time;
         }
 
-        // Movimiento constante
         rb.velocity = new Vector2(direction * Speed, rb.velocity.y);
     }
 
@@ -79,16 +76,28 @@ public class Enemy : MonoBehaviour
 
                 if (player != null)
                 {
-                    player.TakeDamage(Damage);
+                    player.TakeDamage(Damage, transform);
                     lastHit = Time.time;
                 }
             }
         }
     }
 
-    public void Hit()
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Espada") && Time.time > lastDamageTime + damageCooldown)
+        {
+            Hit(collision.transform);
+            lastDamageTime = Time.time;
+        }
+    }
+
+    public void Hit(Transform attacker)
     {
         Life--;
+
+        float direction = transform.position.x - attacker.position.x;
+        rb.AddForce(new Vector2(direction * 4f, 2f), ForceMode2D.Impulse);
 
         if (Life <= 0)
         {

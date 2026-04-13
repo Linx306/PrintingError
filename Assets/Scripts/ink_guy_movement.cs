@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class ink_guy : MonoBehaviour
     public int CurrentAmmo;
     public Image[] ammoImages;
 
+    public Collider2D swordCollider; 
+
     private Rigidbody2D Rigidbody2D;
     private Animator Animator;
     private ink_guy_sounds sounds;
@@ -25,6 +28,7 @@ public class ink_guy : MonoBehaviour
     private bool Grounded;
     private bool isInvulnerable = false;
     private float LastShoot;
+    private bool attack;
 
     public Transform fallLimit;
 
@@ -40,9 +44,10 @@ public class ink_guy : MonoBehaviour
 
         CurrentAmmo = MaxAmmo;
         UpdateAmmoUI();
+
+        swordCollider.enabled = false; 
     }
 
-    // Update
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -54,31 +59,21 @@ public class ink_guy : MonoBehaviour
 
         Animator.SetBool("running", horizontal != 0.0f);
 
-        Debug.DrawRay(transform.position, Vector3.down * 0.2f, Color.red);
-
-        if (Physics2D.Raycast(transform.position, Vector3.down, 0.2f))
-            Grounded = true;
-        else
-            Grounded = false;
-
+        Grounded = Physics2D.Raycast(transform.position, Vector3.down, 0.2f);
         Animator.SetBool("jumping", !Grounded);
 
         // SALTO
         if (Input.GetKeyDown(KeyCode.W) && Grounded)
         {
             Jump();
-
-            if (sounds != null)
-                sounds.PlayJump();
+            if (sounds != null) sounds.PlayJump();
         }
 
         // DISPARO
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > LastShoot + 0.25f && CurrentAmmo > 0)
         {
             Shoot();
-
-            if (sounds != null)
-                sounds.PlayShoot();
+            if (sounds != null) sounds.PlayShoot();
 
             LastShoot = Time.time;
             CurrentAmmo--;
@@ -86,16 +81,18 @@ public class ink_guy : MonoBehaviour
         }
 
         CheckFall();
+        // ATAQUE
+        if (Input.GetMouseButtonDown(0) && !attack)
+        {
+            Attack();
+        }
     }
 
     void UpdateAmmoUI()
     {
         for (int i = 0; i < ammoImages.Length; i++)
         {
-            if (i < CurrentAmmo)
-                ammoImages[i].enabled = true;
-            else
-                ammoImages[i].enabled = false;
+            ammoImages[i].enabled = i < CurrentAmmo;
         }
     }
 
@@ -103,12 +100,7 @@ public class ink_guy : MonoBehaviour
     {
         Animator.SetBool("shoot", true);
 
-        Vector3 direction;
-
-        if (transform.localScale.x == 1.0f)
-            direction = Vector3.right;
-        else
-            direction = Vector3.left;
+        Vector3 direction = (transform.localScale.x == 1) ? Vector3.right : Vector3.left;
 
         GameObject bullet = Instantiate(
             BulletPrefab,
@@ -126,6 +118,28 @@ public class ink_guy : MonoBehaviour
         Animator.SetBool("shoot", false);
     }
 
+    public void Attack()
+    {
+        attack = true;
+        Animator.SetBool("attack", true);
+
+        swordCollider.enabled = true; 
+
+        Invoke("DisableAttack", 0.2f);
+    }
+
+    void DisableAttack()
+    {
+        swordCollider.enabled = false; 
+        NoAttack();
+    }
+
+    public void NoAttack()
+    {
+        attack = false;
+        Animator.SetBool("attack", false);
+    }
+
     private void Jump()
     {
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
@@ -136,7 +150,7 @@ public class ink_guy : MonoBehaviour
         Rigidbody2D.velocity = new Vector2(horizontal * Speed, Rigidbody2D.velocity.y);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Transform enemy)
     {
         if (isInvulnerable) return;
 
@@ -147,13 +161,11 @@ public class ink_guy : MonoBehaviour
 
         Animator.SetBool("hurt", true);
 
+        float direction = transform.position.x - enemy.position.x;
+        Rigidbody2D.AddForce(new Vector2(direction * 4f, 3f), ForceMode2D.Impulse);
+
         Invoke("StopHurt", 0.3f);
         Invoke("ResetInvulnerability", 1f);
-
-        Rigidbody2D.AddForce(
-            new Vector2(-transform.localScale.x * 4f, 4f),
-            ForceMode2D.Impulse
-        );
 
         if (Life <= 0)
         {
@@ -176,21 +188,13 @@ public class ink_guy : MonoBehaviour
 
     public void RestoreDamage(int restore)
     {
-        Life += restore;
-
-        if (Life > MaxLife)
-            Life = MaxLife;
-
+        Life = Mathf.Min(Life + restore, MaxLife);
         healthBar.value = Life;
     }
 
     public void AddAmmo(int amount)
     {
-        CurrentAmmo += amount;
-
-        if (CurrentAmmo > MaxAmmo)
-            CurrentAmmo = MaxAmmo;
-
+        CurrentAmmo = Mathf.Min(CurrentAmmo + amount, MaxAmmo);
         UpdateAmmoUI();
     }
 
