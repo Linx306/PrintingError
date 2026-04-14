@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ink_guy : MonoBehaviour
 {
@@ -50,6 +51,8 @@ public class ink_guy : MonoBehaviour
 
     void Update()
     {
+         if (GameManager.Instance != null && GameManager.Instance.IsPaused())
+        return;
         horizontal = Input.GetAxisRaw("Horizontal");
 
         if (horizontal < 0.0f)

@@ -1,79 +1,95 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
     public GameObject gameOverPanel;
-    public TextMeshProUGUI gameOverText;
-    public Button reiniciarButton;
-    public Button menuButton;
-    private bool gameOverActivo = false;
+    public GameObject gameOverText;
+    public GameObject resumeButton;
+
+    private bool isPaused = false;
 
     void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
-        if(gameOverPanel !=null)
+        Time.timeScale = 1f;
         gameOverPanel.SetActive(false);
-        if(reiniciarButton!=null)
-        reiniciarButton.onClick.AddListener(ReiniciarEscena);
-        if(menuButton != null)
-        menuButton.onClick.AddListener(IrAlMenu);
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(gameOverActivo)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                ReiniciarEscena();
-            }
-            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.M))
-            {
-                IrAlMenu();
-            }
+            if (!isPaused)
+                PauseGame();
+            else
+                ResumeGame();
         }
-    }
-    public void GameOver()
-    {
-        if(gameOverActivo) return;
-        gameOverActivo = true;
-        if(gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
-        if(gameOverText != null)
-        {
-            gameOverText.text = "GAME OVER";
-        }
-    }
-    public void ReiniciarEscena()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void IrAlMenu()
+    // 🟡 PAUSA
+    public void PauseGame()
+    {
+        isPaused = true;
+
+        gameOverPanel.SetActive(true);
+        gameOverText.SetActive(false);
+        resumeButton.SetActive(true);
+
+        Time.timeScale = 0f;
+    }
+
+    // 🟢 REANUDAR
+    public void ResumeGame()
+    {
+        isPaused = false;
+
+        gameOverPanel.SetActive(false);
+
+        Time.timeScale = 1f;
+    }
+
+    // 🔴 GAME OVER
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        gameOverText.SetActive(true);
+        resumeButton.SetActive(false);
+
+        Time.timeScale = 0f;
+    }
+
+    // 🔍 PARA BLOQUEAR INPUTS
+    public bool IsPaused()
+    {
+        return isPaused;
+    }
+
+    // 🔄 REINICIAR NIVEL
+    public void RestartLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Inicio");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // 🏠 IR AL MENÚ
+    public void LoadMenu(string sceneName)
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // ❌ SALIR DEL JUEGO
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
