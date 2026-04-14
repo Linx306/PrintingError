@@ -2762,11 +2762,11 @@ MonoBehaviour:
   MaxAmmo: 5
   CurrentAmmo: 5
   ammoImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 533700610}
+  - {fileID: 2036185875}
+  - {fileID: 1582186907}
+  - {fileID: 323393080}
+  - {fileID: 1408675932}
   swordCollider: {fileID: 629399483}
   fallLimit: {fileID: 1733324190}
 --- !u!70 &351760050

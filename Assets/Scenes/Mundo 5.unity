@@ -1758,15 +1758,15 @@ MonoBehaviour:
   Speed: 1.5
   Life: 5
   MaxLife: 5
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 2046649247}
   MaxAmmo: 5
   CurrentAmmo: 5
   ammoImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 533700610}
+  - {fileID: 2036185875}
+  - {fileID: 1582186907}
+  - {fileID: 323393080}
+  - {fileID: 1408675932}
   swordCollider: {fileID: 1705313091}
   fallLimit: {fileID: 0}
 --- !u!70 &521894549
