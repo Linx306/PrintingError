@@ -63,14 +63,14 @@ public class ink_guy : MonoBehaviour
         Animator.SetBool("jumping", !Grounded);
 
         // SALTO
-        if (Input.GetKeyDown(KeyCode.W) && Grounded)
+        if (Input.GetButtonDown("Jump") && Grounded)
         {
             Jump();
             if (sounds != null) sounds.PlayJump();
         }
 
         // DISPARO
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > LastShoot + 0.25f && CurrentAmmo > 0)
+        if (Input.GetButtonDown("Fire1") && Time.time > LastShoot + 0.25f && CurrentAmmo > 0)
         {
             Shoot();
             if (sounds != null) sounds.PlayShoot();
@@ -82,7 +82,7 @@ public class ink_guy : MonoBehaviour
 
         CheckFall();
         // ATAQUE
-        if (Input.GetMouseButtonDown(0) && !attack)
+        if (Input.GetButtonDown("Fire2") && !attack)
         {
             Attack();
         }

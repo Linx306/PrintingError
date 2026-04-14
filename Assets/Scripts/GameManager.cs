@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         }
         if(gameOverText != null)
         {
-            gameOverText.text = "GAME OVER\nR-Reiniciar\nESC - Menu";
+            gameOverText.text = "GAME OVER";
         }
     }
     public void ReiniciarEscena()
