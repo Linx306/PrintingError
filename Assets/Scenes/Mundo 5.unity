@@ -427,6 +427,7 @@ MonoBehaviour:
   - {fileID: 1160573056}
   maxEnemiesAlive: 2
   bossLife: 10
+  totalEnemiesToSpawn: 10
   healthBar: {fileID: 26642379}
 --- !u!4 &141174181
 Transform:
@@ -879,9 +880,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1600630825}
-  gameOverText: {fileID: 891303308}
-  reiniciarButton: {fileID: 555177440}
-  menuButton: {fileID: 913531211}
+  gameOverText: {fileID: 891303305}
+  resumeButton: {fileID: 0}
 --- !u!4 &277461679
 Transform:
   m_ObjectHideFlags: 0
@@ -2056,7 +2056,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 555177441}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 277461678}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &555177441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4317,7 +4329,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 913531212}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 277461678}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadMenu
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Inicio
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &913531212
 MonoBehaviour:
   m_ObjectHideFlags: 0

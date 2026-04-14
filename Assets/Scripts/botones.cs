@@ -22,6 +22,11 @@ public class botones : MonoBehaviour
         SceneManager.LoadScene("Configuration");
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void IrAInicio()
     {
         SceneManager.LoadScene("Inicio");

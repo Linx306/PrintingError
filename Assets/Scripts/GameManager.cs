@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 🟡 PAUSA
+    //  PAUSA
     public void PauseGame()
     {
         isPaused = true;
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    // 🟢 REANUDAR
+    //  REANUDAR
     public void ResumeGame()
     {
         isPaused = false;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    // 🔴 GAME OVER
+    //  GAME OVER
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
@@ -67,27 +67,27 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    // 🔍 PARA BLOQUEAR INPUTS
+    // PARA BLOQUEAR INPUTS
     public bool IsPaused()
     {
         return isPaused;
     }
 
-    // 🔄 REINICIAR NIVEL
+    // REINICIAR NIVEL
     public void RestartLevel()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // 🏠 IR AL MENÚ
+    //  IR AL MENÚ
     public void LoadMenu(string sceneName)
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
     }
 
-    // ❌ SALIR DEL JUEGO
+    //  SALIR DEL JUEGO
     public void QuitGame()
     {
         Application.Quit();
