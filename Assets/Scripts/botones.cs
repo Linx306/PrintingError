@@ -14,7 +14,7 @@ public class botones : MonoBehaviour
 
     public void ComenzarJuego()
     {
-        SceneManager.LoadScene("Inkworld");
+        SceneManager.LoadScene("Mundo 1");
     }
 
     public void IrAConfiguracion()

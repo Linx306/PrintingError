@@ -2559,6 +2559,7 @@ MonoBehaviour:
   healthBar: {fileID: 252594985}
   flipCooldown: 0.3
   HitCooldown: 1
+  boss: {fileID: 0}
 --- !u!60 &707067716
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -10120,6 +10121,7 @@ MonoBehaviour:
   healthBar: {fileID: 1410288375}
   flipCooldown: 0.3
   HitCooldown: 1
+  boss: {fileID: 0}
 --- !u!60 &902023753
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -10484,7 +10486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 302.2, y: -67.899994}
+  m_AnchoredPosition: {x: 302.2, y: -67.900024}
   m_SizeDelta: {x: 281.07, y: 43.025024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &949969643
@@ -10571,6 +10573,7 @@ MonoBehaviour:
   healthBar: {fileID: 1013361417}
   flipCooldown: 0.3
   HitCooldown: 1
+  boss: {fileID: 0}
 --- !u!60 &952798164
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -11991,6 +11994,7 @@ MonoBehaviour:
   healthBar: {fileID: 971516315}
   flipCooldown: 0.3
   HitCooldown: 1
+  boss: {fileID: 0}
 --- !u!95 &1344457325
 Animator:
   serializedVersion: 5
@@ -12390,6 +12394,7 @@ MonoBehaviour:
   healthBar: {fileID: 2105355421}
   flipCooldown: 0.3
   HitCooldown: 1
+  boss: {fileID: 0}
 --- !u!95 &1560484642
 Animator:
   serializedVersion: 5
@@ -13125,6 +13130,7 @@ MonoBehaviour:
   healthBar: {fileID: 958205111}
   flipCooldown: 0.3
   HitCooldown: 1
+  boss: {fileID: 0}
 --- !u!95 &1743288073
 Animator:
   serializedVersion: 5
@@ -13730,7 +13736,7 @@ Transform:
   m_GameObject: {fileID: 2012731834}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.608, y: 5.699, z: 0}
+  m_LocalPosition: {x: -2.252, y: -0.406, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14143,7 +14149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -139.7, y: -67.899994}
+  m_AnchoredPosition: {x: -139.7, y: -67.900024}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2046649247

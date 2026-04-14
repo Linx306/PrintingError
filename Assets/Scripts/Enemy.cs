@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
 
     private float lastHit;
     public float HitCooldown = 1f;
+    public BossSpawner boss;
 
     void Start()
     {
@@ -116,6 +117,11 @@ public class Enemy : MonoBehaviour
 
         if (Life <= 0)
         {
+            if (boss != null)
+            {
+                boss.OnEnemyKilled();
+            }
+
             Destroy(gameObject);
         }
     }
