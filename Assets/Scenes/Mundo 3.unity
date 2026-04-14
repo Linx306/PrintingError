@@ -823,7 +823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveHorizontal: 1
-  invertMovement: 0
+  invertMovement: 1
   distance: 1
   speed: 3
 --- !u!50 &143306509
